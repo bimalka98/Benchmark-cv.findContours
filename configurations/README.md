@@ -10,8 +10,9 @@ You can significantly optimize OpenCV by letting it know more details of your ha
 
 Here is the full list of ARM CPU features, and the corresponding CMake options for OpenCV configuration:
 
-|:----:|:-----|:-----|
+
 |CPU Feature |	CMake Key	|Comment|
+|:----:|:-----|:-----|
 |thumb	|N/A	|ARM Thumb instruction set is enabled by default|
 |VFPv3	|-DENABLE_VFPV3=ON|	ARM VFPv3 floating point instructions extension|
 |NEON	|-DENABLE_NEON=ON	|ARM NEON vector instruction set|
