@@ -30,3 +30,11 @@ CPU part        : 0xd03
 CPU revision    : 4
 
 ```
+
+# Cmake platform settings options
+
+```
+cmake -DENABLE_NEON=ON -DENABLE_VFPV3=ON -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules ../opencv
+
+
+```
