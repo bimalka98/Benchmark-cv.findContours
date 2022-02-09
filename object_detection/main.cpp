@@ -1,8 +1,3 @@
-/**
- * Author: Dario Limongi
- * License: BSD-2 (please check LICENSE file in repo root.)
- * Adapted from: https://www.pyimagesearch.com/2015/08/10/checking-your-opencv-version-using-python/
- */
 
 #include <iostream>
 #include <opencv2/highgui/highgui.hpp>
@@ -13,7 +8,7 @@ namespace
 const int         CURRENT_OPENCV_BUILD_MAJOR{ 4 };
 const int         CURRENT_OPENCV_BUILD_MINOR{ 4 };
 const int         CURRENT_OPENCV_BUILD_REVISION = { 0 };
-const std::string IMAGE{ "tetris_blocks.png" };
+const std::string IMAGE{ "belt.png" };
 }
 
 bool
@@ -63,11 +58,11 @@ main( )
 
     cv::Mat gray_image, thresholded_image;
     cv::cvtColor( image, gray_image, cv::COLOR_BGR2GRAY );
-    cv::threshold( gray_image, thresholded_image, 225, 255, cv::THRESH_BINARY_INV );
+    cv::threshold( gray_image, thresholded_image, 0, 255, cv.THRESH_BINARY_INV+cv.THRESH_OTSU );
 
     std::vector< std::vector< cv::Point > > contours;
     cv::findContours( thresholded_image, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE );
-    cv::drawContours( image, contours, -1, cv::Scalar( 240, 0, 159 ), 3 );
+    cv::drawContours( image, contours, -1, cv::Scalar( 0, 255, 0 ), 3 );
 
     cv::imshow( "Image", image );
     cv::waitKey( 0 );
