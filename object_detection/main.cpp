@@ -46,6 +46,7 @@ check_build_info( )
 int
 main( )
 {
+    // build info check
     if ( !check_build_info( ) ) {
         std::cout << "SUCCESS: You are using latest OpenCV version, with NEON/TBB support enabled." << std::endl;
     } else {
@@ -59,22 +60,49 @@ main( )
         return 1;
     }
     
-    // Get the timepoint before the function is called
+    /*
+    *************************************************************
+    **               Object Detection Framework                **
+    *************************************************************
+    */
+
+    // Get the timepoint before the object detection
     auto start = high_resolution_clock::now();
     
-    cv::Mat gray_image, thresholded_image;
-    cv::cvtColor( image, gray_image, cv::COLOR_BGR2GRAY );
-    cv::threshold( gray_image, thresholded_image, 0, 255, cv::THRESH_BINARY_INV+cv::THRESH_OTSU );
- 
-    std::vector< std::vector< cv::Point > > contours;
+    cv::Mat _grayimage, _thresholdedimage, _closedimage;
 
-    cv::findContours( thresholded_image, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE );
-    // Get the timepoint after the function is called
-    auto stop = high_resolution_clock::now();
+    // Convert the image to grayscale
+    cv::cvtColor( image, _grayimage, cv::COLOR_BGR2GRAY );
+    
+    // Threshold the image
+    cv::threshold( _grayimage, _thresholdedimage, 0, 255, cv::THRESH_BINARY_INV+cv::THRESH_OTSU );
+    
+    // morphological closing (fill small holes in the foreground)
+    cv::Mat _element = cv::getStructuringElement( cv::MORPH_RECT, cv::Size( 3, 3 ) );
+    cv::morphologyEx( _thresholdedimage, _closedimage, cv::MORPH_CLOSE, _element );
+
+    // conneceted component analysis
+    cv::Mat _labels, _stats, _centroids;
+    int _numberofobjects = cv::connectedComponentsWithStats( _closedimage, _labels, _stats, _centroids );
+
+    // subtract the background
+    cv::Mat _ones = cv::Mat::ones( _closedimage.size(), CV_8UC1 );
+    cv::Mat _mask = cv::bitwise_and( _ones, _labels );
+    // Visualize the mask
+    cv::imshow( "Mask", _mask );
+    cv::waitKey( 0 );
+
+    std::vector< std::vector< cv::Point > > _contours;
+    cv::findContours( _thresholdedimage, _contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE );
+    
     // Calculate the duration
     auto duration = duration_cast<microseconds>( stop - start );
     std::cout << "Time taken by findContours function: " << duration.count() << " microseconds" << std::endl;
 
+    // Get the timepoint after the the object detection
+    auto stop = high_resolution_clock::now();
+
+    // draw contours
     cv::drawContours( image, contours, -1, cv::Scalar( 0, 255, 0 ), 3 );
     cv::imshow( "Image", image );
     cv::waitKey( 0 );
