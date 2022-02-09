@@ -58,7 +58,7 @@ main( )
 
     cv::Mat gray_image, thresholded_image;
     cv::cvtColor( image, gray_image, cv::COLOR_BGR2GRAY );
-    cv::threshold( gray_image, thresholded_image, 0, 255, cv.THRESH_BINARY_INV+cv.THRESH_OTSU );
+    cv::threshold( gray_image, thresholded_image, 0, 255, cv::THRESH_BINARY_INV+cv::THRESH_OTSU );
 
     std::vector< std::vector< cv::Point > > contours;
     cv::findContours( thresholded_image, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE );
