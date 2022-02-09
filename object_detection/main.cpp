@@ -58,15 +58,16 @@ main( )
         std::cout << "ERROR: Could not open or find the image" << std::endl;
         return 1;
     }
-
+    
+    // Get the timepoint before the function is called
+    auto start = high_resolution_clock::now();
+    
     cv::Mat gray_image, thresholded_image;
     cv::cvtColor( image, gray_image, cv::COLOR_BGR2GRAY );
     cv::threshold( gray_image, thresholded_image, 0, 255, cv::THRESH_BINARY_INV+cv::THRESH_OTSU );
-
+ 
     std::vector< std::vector< cv::Point > > contours;
 
-    // Get the timepoint before the function is called
-    auto start = high_resolution_clock::now();
     cv::findContours( thresholded_image, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE );
     // Get the timepoint after the function is called
     auto stop = high_resolution_clock::now();
