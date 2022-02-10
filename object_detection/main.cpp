@@ -67,32 +67,43 @@ main( )
     *************************************************************
     */
 
-    // Get the timepoint before the object detection
-    auto start = high_resolution_clock::now();
+    
     
     cv::Mat _grayimage, _thresholdedimage, _closedimage;
 
     // Convert the image to grayscale
     cv::cvtColor( image, _grayimage, cv::COLOR_BGR2GRAY );
     
+    
+    
+    
+    
     // Threshold the image
     cv::threshold( _grayimage, _thresholdedimage, 0, 255, cv::THRESH_BINARY_INV+cv::THRESH_OTSU );
+    
+    
+    
+    
     
     // morphological closing (fill small holes in the foreground)
     cv::Mat _element = cv::getStructuringElement( cv::MORPH_RECT, cv::Size( 3, 3 ) );
     cv::morphologyEx( _thresholdedimage, _closedimage, cv::MORPH_CLOSE, _element );
+    
+    // Get the timepoint before the object detection
+    auto start = high_resolution_clock::now();
 
     // conneceted component analysis
     cv::Mat _labels, _stats, _centroids;
     int _numberofobjects = cv::connectedComponentsWithStats( _closedimage, _labels, _stats, _centroids );
-
+    
     // Get the timepoint after the the object detection
     auto stop = high_resolution_clock::now();
+    
 
     // Calculate the duration
     auto duration = duration_cast<microseconds>( stop - start );
     // std::cout << "Time taken by findContours function: " << duration.count() << " microseconds" << std::endl;
-    std::cout << "Time taken by connectedComponentsWithStats function: " << duration.count() << " microseconds" << std::endl;
+    std::cout << "Time taken : " << duration.count() << " microseconds" << std::endl;
 
     // Display the labels and centroids with bounding boxes
     // Neglecting the 0 labeled background by starting from 1
@@ -114,6 +125,7 @@ main( )
         // mark the center of the object
         cv::circle( image, cv::Point(_cx, _cy), 0, cv::Scalar( 0, 0, 255 ), -1 );
     }
+    std::cout << "CCA Complete." << std::endl;
     cv::imshow( "Detected Objects", image );
     cv::waitKey( 0 );
 
@@ -123,6 +135,7 @@ main( )
     *************************************************************
     */
 
+    std::cout << "Tracking started." << std::endl;
     // Get the timepoint before the object tracking
     start = high_resolution_clock::now();
 
@@ -132,12 +145,12 @@ main( )
     cv::bitwise_and( _ones, _labels, _mask );
     
     // Visualize the mask
-    cv::imshow( "Mask", _mask );
-    cv::waitKey( 0 );
+    //cv::imshow( "Mask", _mask );
+    //cv::waitKey( 0 );
     
     std::vector< std::vector< cv::Point > > _contours;
     cv::findContours( _mask, _contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE );
-
+    
     // Get the timepoint after the object tracking
     stop = high_resolution_clock::now();
 
