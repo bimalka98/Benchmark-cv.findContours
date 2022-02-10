@@ -18,14 +18,14 @@ Function Arguments      : Start with simple letters, combine with simple letters
 
 
 // user defined libraries
-#include "../libs/utilities/utilities.h" // Misscelaneous functions
-#include "../libs/tsa/tsa.h" // Paper: "Topological Structural Analysis of Digitized Binary Images by Border Following"
-#include "../libs/dsa/dsa.h" // Data structures and Algorithms
+#include "utilities.h" // Misscelaneous functions
+#include "tsa.h" // Paper: "Topological Structural Analysis of Digitized Binary Images by Border Following"
+#include "dsa.h" // Data structures and Algorithms
 #include <time.h>
 
 
 // sample binary image for contour detection
-
+/*
 short BinaryImage[IMG_HEIGHT][IMG_WIDTH] = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
@@ -33,13 +33,13 @@ short BinaryImage[IMG_HEIGHT][IMG_WIDTH] = {
         {0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0},
         {0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-
+*/
 
 // Sample binary images saved in header files: Remember to image size parameters in the tsa.h file
-//#include "../data/raw/ImageHeaders/image256.h"     // BinaryImage256
-//#include "../data/raw/ImageHeaders/image512.h"   // BinaryImage512
-//#include "../data/raw/ImageHeaders/image1024.h"  // BinaryImage1024
-//#include "../data/raw/ImageHeaders/image2048.h"  // BinaryImage2048
+#include "image256.h"     // BinaryImage256
+//#include "image512.h"   // BinaryImage512
+//#include "image1024.h"  // BinaryImage1024
+//#include "image2048.h"  // BinaryImage2048
  
 int main () {
 
@@ -51,7 +51,7 @@ int main () {
 
 
     _start = clock (); 
-    struct Node* contours = findContours (BinaryImage, IMG_WIDTH, IMG_HEIGHT);
+    struct Node* contours = findContours (BinaryImage256, IMG_WIDTH, IMG_HEIGHT);
     _end = clock ();
     
     // calculating the execution time

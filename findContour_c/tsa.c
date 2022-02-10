@@ -142,7 +142,7 @@ struct Node* followBorder (
     short  binary_image[IMG_HEIGHT][IMG_WIDTH],
     short  nbd,
     short *lnbd) {
-    printf ("\nFollowing the detected border...");
+    // printf ("\nFollowing the detected border...");
     // creating a linked list to store the pixels of the currently following border
     struct Node* _headnode = NULL;
     struct Node* _currentnode = _headnode;
@@ -231,7 +231,7 @@ struct Node* followBorder (
                         if ( binary_image[ij._x][ij._x] != 1 ) {
                             *lnbd = abs (binary_image[ij._x][ij._x]);
                         }
-                        printf ("\nComing back to the starting point. Border following terminated.");
+                        // printf ("\nComing back to the starting point. Border following terminated.");
                         break;
 
                     }
@@ -347,7 +347,7 @@ struct Node* findContours (short  binary_image[IMG_HEIGHT][IMG_WIDTH], short  im
                     _contour = followBorder (_ij, &_i2j2, binary_image, _nbd, &_lnbd);
                     _root = _contour;
                     count++;
-                    printf ("\nDetected contour %d", count);
+                    //printf ("\nDetected contour %d", count);
                     //printLinkedList (_contour);
                 }
             }

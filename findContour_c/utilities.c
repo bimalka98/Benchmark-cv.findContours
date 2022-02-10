@@ -9,7 +9,7 @@ void showImage (int binaryimage[IMG_HEIGHT][IMG_WIDTH]) {
         printf ("\n");
     }
 }
-
+/*
 void writeImage (short binaryimage[IMG_HEIGHT][IMG_WIDTH], FILE** fptr, char const* filepath) {
 
     // opening the file in the safe mood
@@ -34,4 +34,4 @@ void writeImage (short binaryimage[IMG_HEIGHT][IMG_WIDTH], FILE** fptr, char con
 
         printf ("\nWrote image successfully to the file.\a");
     }
-}
+}*/
