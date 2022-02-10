@@ -98,6 +98,7 @@ main( )
     cv::findContours( _mask, _contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE );
     
     */
+    
     // Get the timepoint after the the object detection
     auto stop = high_resolution_clock::now();
 
@@ -113,20 +114,21 @@ main( )
         int _y = _stats.at< int >( i, cv::CC_STAT_TOP );
         int _width = _stats.at< int >( i, cv::CC_STAT_WIDTH );
         int _height = _stats.at< int >( i, cv::CC_STAT_HEIGHT );
-        cv::Point _center = _centroids.at< cv::Point >( i );
+        double _cx = _centroids.at<double>(i, 0);
+        double _cy = _centroids.at<double>(i, 1);
 
         // generating the bounding box
         cv::Rect _boundingbox( _x, _y, _width, _height );
         // draw the bounding box
         cv::rectangle( image, _boundingbox, cv::Scalar( 0, 0, 255 ), 2 );
         // draw the center of the bounding box
-        cv::putText( image, std::to_string( i ), _center , cv::FONT_HERSHEY_COMPLEX, 0.5, cv::Scalar( 0, 0, 255 ), 1 );
+        cv::putText( image, std::to_string( i ), cv::Point(_cx, _cy) , cv::FONT_HERSHEY_COMPLEX, 2, cv::Scalar( 0, 0, 255 ), 2 );
     }
 
     // draw contours
     // cv::drawContours( image, contours, -1, cv::Scalar( 0, 255, 0 ), 3 );
-    // cv::imshow( "Image", image );
-    // cv::waitKey( 0 );
+    cv::imshow( "Image", image );
+    cv::waitKey( 0 );
 
     return 0;
 }
