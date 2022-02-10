@@ -85,27 +85,48 @@ main( )
     cv::Mat _labels, _stats, _centroids;
     int _numberofobjects = cv::connectedComponentsWithStats( _closedimage, _labels, _stats, _centroids );
 
+
+    /*
     // subtract the background
     cv::Mat _ones = cv::Mat::ones( _closedimage.size(), CV_8UC1 );
     cv::Mat _mask = cv::bitwise_and( _ones, _labels );
     // Visualize the mask
     cv::imshow( "Mask", _mask );
     cv::waitKey( 0 );
-
-    std::vector< std::vector< cv::Point > > _contours;
-    cv::findContours( _thresholdedimage, _contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE );
     
+    std::vector< std::vector< cv::Point > > _contours;
+    cv::findContours( _mask, _contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE );
+    
+    */
+    // Get the timepoint after the the object detection
+    auto stop = high_resolution_clock::now();
+
     // Calculate the duration
     auto duration = duration_cast<microseconds>( stop - start );
     std::cout << "Time taken by findContours function: " << duration.count() << " microseconds" << std::endl;
 
-    // Get the timepoint after the the object detection
-    auto stop = high_resolution_clock::now();
+    // Display the labels and centroids with bounding boxes
+    // Neglecting the 0 labeled background by starting from 1
+    for ( int i = 1; i < _numberofobjects; i++ ) {
+
+        int _x = _stats.at< int >( i, cv::CC_STAT_LEFT );
+        int _y = _stats.at< int >( i, cv::CC_STAT_TOP );
+        int _width = _stats.at< int >( i, cv::CC_STAT_WIDTH );
+        int _height = _stats.at< int >( i, cv::CC_STAT_HEIGHT );
+        cv::Point _center = _centroids.at< cv::Point >( i );
+
+        // generating the bounding box
+        cv::Rect _boundingbox( _x, _y, _width, _height );
+        // draw the bounding box
+        cv::rectangle( image, _boundingbox, cv::Scalar( 0, 0, 255 ), 2 );
+        // draw the center of the bounding box
+        cv::putText( image, std::to_string( i ), _center , cv::FONT_HERSHEY_COMPLEX, 0.5, cv::Scalar( 0, 0, 255 ), 1 );
+    }
 
     // draw contours
-    cv::drawContours( image, contours, -1, cv::Scalar( 0, 255, 0 ), 3 );
-    cv::imshow( "Image", image );
-    cv::waitKey( 0 );
+    // cv::drawContours( image, contours, -1, cv::Scalar( 0, 255, 0 ), 3 );
+    // cv::imshow( "Image", image );
+    // cv::waitKey( 0 );
 
     return 0;
 }
