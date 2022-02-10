@@ -1,4 +1,4 @@
-#include "../libs/tsa/tsa.h"
+#include "../../../libs/tsa/tsa.h"
 
 
 short BinaryImage256[IMG_HEIGHT][IMG_WIDTH] = {
