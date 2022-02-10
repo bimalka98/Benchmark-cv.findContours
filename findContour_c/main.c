@@ -36,8 +36,8 @@ short BinaryImage[IMG_HEIGHT][IMG_WIDTH] = {
 */
 
 // Sample binary images saved in header files: Remember to image size parameters in the tsa.h file
-#include "image256.h"     // BinaryImage256
-//#include "image512.h"   // BinaryImage512
+//#include "image256.h"     // BinaryImage256
+#include "image512.h"   // BinaryImage512
 //#include "image1024.h"  // BinaryImage1024
 //#include "image2048.h"  // BinaryImage2048
  
@@ -51,14 +51,14 @@ int main () {
 
 
     _start = clock (); 
-    struct Node* contours = findContours (BinaryImage256, IMG_WIDTH, IMG_HEIGHT);
+    struct Node* contours = findContours (BinaryImage512, IMG_WIDTH, IMG_HEIGHT);
     _end = clock ();
     
     // calculating the execution time
     _cputimeused = ( (( double ) ( _end - _start )) / CLOCKS_PER_SEC );
     printf ("\nStart: %ld", _start);
     printf ("\nEnd: %ld", _end);
-    printf ("\nExecution time: %f", _cputimeused);
+    printf ("\nExecution time: %f s", _cputimeused);
     
     /*
     // saving the processed image to a file
