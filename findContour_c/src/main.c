@@ -25,19 +25,19 @@ Function Arguments      : Start with simple letters, combine with simple letters
 
 
 // sample binary image for contour detection
-/*
-int BinaryImage[IMG_HEIGHT][IMG_WIDTH] = {
+
+short BinaryImage[IMG_HEIGHT][IMG_WIDTH] = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
         {0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0},
         {0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0},
         {0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-*/
+
 
 // Sample binary images saved in header files: Remember to image size parameters in the tsa.h file
 //#include "../data/raw/ImageHeaders/image256.h"     // BinaryImage256
-#include "../data/raw/ImageHeaders/image512.h"   // BinaryImage512
+//#include "../data/raw/ImageHeaders/image512.h"   // BinaryImage512
 //#include "../data/raw/ImageHeaders/image1024.h"  // BinaryImage1024
 //#include "../data/raw/ImageHeaders/image2048.h"  // BinaryImage2048
  
@@ -51,7 +51,7 @@ int main () {
 
 
     _start = clock (); 
-    struct Node* contours = findContours (BinaryImage512, IMG_WIDTH, IMG_HEIGHT);
+    struct Node* contours = findContours (BinaryImage, IMG_WIDTH, IMG_HEIGHT);
     _end = clock ();
     
     // calculating the execution time
@@ -60,10 +60,11 @@ int main () {
     printf ("\nEnd: %ld", _end);
     printf ("\nExecution time: %f", _cputimeused);
     
+    /*
     // saving the processed image to a file
     FILE* _fptr;
-    char const* _filepath = "E:\\MVbR2TG\\MVbR2TG\\MVbR2TG\\data\\processed\\ImageTexts\\image512.txt";
+    char const* _filepath = "image512.txt";
     writeImage (BinaryImage512, &_fptr, _filepath);
-    
+    */
     return 0;
 }
