@@ -26,3 +26,11 @@ system. Lastly, a Graphical User Interface was developed.
 The experimental result shows that the developed system
 is highly efficient when implemented in the selected
 database."*
+
+# Timing Analysis of Contour finding algorithms
+
+|Image size|cLang_findContour on PC (Image Type: int)|openCV_findContour on PC(Python) | cLang_findContour on RPi (Image Type: short) | openCV_findContour on RPi(C++)|
+|:------:|:----:|:-----:|:-----:|:-----:|
+|256x256|653 us|73 us|683 us| 650 us|
+|512x512|781 us|445 us|1140 us| 2000 us|
+|1024x1024|1268 us|2000 us|2162 us | 6000 us|
