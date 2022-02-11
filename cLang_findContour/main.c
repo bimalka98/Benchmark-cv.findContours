@@ -39,7 +39,8 @@ short BinaryImage[IMG_HEIGHT][IMG_WIDTH] = {
 //#include "image256.h"     // BinaryImage256
 //#include "image512.h"   // BinaryImage512
 #include "image1024.h"  // BinaryImage1024
-//#include "image2048.h"  // BinaryImage2048
+
+
  
 int main () {
 

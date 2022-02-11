@@ -11,7 +11,7 @@ namespace
 const int         CURRENT_OPENCV_BUILD_MAJOR{ 4 };
 const int         CURRENT_OPENCV_BUILD_MINOR{ 4 };
 const int         CURRENT_OPENCV_BUILD_REVISION = { 0 };
-const std::string IMAGE{ "belt.png" };
+const std::string IMAGE{ "image1024.png" };
 }
 
 bool
@@ -72,7 +72,7 @@ main( )
     auto stop = high_resolution_clock::now();
     // Calculate the duration
     auto duration = duration_cast<microseconds>( stop - start );
-    cout << "Time taken by findContours function: " << duration.count() << " microseconds" << std::endl;
+    std::cout << "Time taken by findContours function: " << duration.count() << " microseconds" << std::endl;
 
     cv::drawContours( image, contours, -1, cv::Scalar( 0, 255, 0 ), 3 );
     cv::imshow( "Image", image );

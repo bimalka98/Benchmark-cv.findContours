@@ -14,7 +14,7 @@ message(STATUS "    version: ${OpenCV_VERSION}")
 message(STATUS "    config: ${OpenCV_DIR}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 
-file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/image256.png" DESTINATION "${CMAKE_BINARY_DIR}")
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/image1024.png" DESTINATION "${CMAKE_BINARY_DIR}")
 
 # add the executable
 add_executable(findContour_openCV main.cpp)
