@@ -18,8 +18,8 @@ topological structural analysis of binary images, when a sequential digital comp
 #include "dsa.h"
 
 // defining parameters of the image
-#define IMG_HEIGHT 512
-#define IMG_WIDTH  512
+#define IMG_HEIGHT 1024
+#define IMG_WIDTH  1024
 
 // type definitiions
 enum Direction{
